@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.nuebuildfields = {})));
+  (factory((global.NueBuildFields = {})));
 }(this, (function (exports) { 'use strict';
 
   /**
@@ -384,7 +384,7 @@
   function install(Vue) {
     if (install.installed) { return }
     install.installed = true;
-    Vue.component('TestComponent', component);
+    Vue.component('NueBuildFields', component);
   }
 
   // Create module definition for Vue.use()
@@ -404,7 +404,7 @@
     GlobalVue.use(plugin);
   }
 
-  exports.NueBuildFields = component;
+  exports.default = component;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

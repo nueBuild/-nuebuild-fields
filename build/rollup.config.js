@@ -9,7 +9,7 @@ const argv = minimist(process.argv.slice(2))
 const config = {
   input: 'src/entry.js',
   output: {
-    name: 'nuebuildfields',
+    name: 'NueBuildFields',
     exports: 'named',
   },
   plugins: [

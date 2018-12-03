@@ -378,7 +378,7 @@ __vue_render__._withStripped = true;
 function install(Vue) {
   if (install.installed) { return }
   install.installed = true;
-  Vue.component('TestComponent', component);
+  Vue.component('NueBuildFields', component);
 }
 
 // Create module definition for Vue.use()
@@ -398,4 +398,4 @@ if (GlobalVue) {
   GlobalVue.use(plugin);
 }
 
-export { component as NueBuildFields };
+export default component;

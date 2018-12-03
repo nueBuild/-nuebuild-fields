@@ -5,7 +5,7 @@ import component from './components/NueBuildFields.vue'
 function install(Vue) {
   if (install.installed) return
   install.installed = true
-  Vue.component('TestComponent', component)
+  Vue.component('NueBuildFields', component)
 }
 
 // Create module definition for Vue.use()
@@ -25,5 +25,4 @@ if (GlobalVue) {
   GlobalVue.use(plugin)
 }
 
-export * from './components/index'
-
+export default component

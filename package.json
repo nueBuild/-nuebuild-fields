@@ -1,6 +1,6 @@
 {
   "name": "@nuebuild/fields",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Easily create for fields for your Vue.js projects.",
   "author": "Jason Witt",
   "license": "MIT",
