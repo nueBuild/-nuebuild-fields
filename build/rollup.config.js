@@ -3,14 +3,13 @@ import vue from 'rollup-plugin-vue'
 import buble from 'rollup-plugin-buble'
 import uglify from 'rollup-plugin-uglify-es'
 import minimist from 'minimist'
-import data from '../package.json'
 
 const argv = minimist(process.argv.slice(2))
 
 const config = {
   input: 'src/entry.js',
   output: {
-    name: data.name,
+    name: 'nuebuildfields',
     exports: 'named',
   },
   plugins: [
