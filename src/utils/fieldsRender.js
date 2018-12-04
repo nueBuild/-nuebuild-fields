@@ -1,7 +1,5 @@
 import { fieldProps } from './fieldProps'
 import { wrapsRender } from './wrapsRender'
-import { labelsRender } from './labelsRender'
-import { typesRender } from './typesRender'
 
 export const fieldsRender = props => {
   const obj = fieldProps(props)
@@ -9,7 +7,7 @@ export const fieldsRender = props => {
   if (obj) {
     Object.keys(obj).forEach(key => {
       const field = obj[key]
-      output += wrapsRender(field, labelsRender(field, typesRender(field)))
+      output += wrapsRender(field)
     })
     return output
   }

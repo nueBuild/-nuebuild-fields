@@ -2,6 +2,7 @@ import { fieldsAttributes } from './fieldsAttributes'
 import { deleteObjectKeys } from './_deleteObjectKeys'
 import { optionsRender } from './optionsRender'
 import { optgroupRender } from './optgroupRender'
+import { labelsRender } from './labelsRender'
 
 export const typesRender = obj => {
   if (!obj) {
@@ -39,5 +40,5 @@ export const typesRender = obj => {
         break
     }
   }
-  return output
+  return labelsRender(obj, output)
 }

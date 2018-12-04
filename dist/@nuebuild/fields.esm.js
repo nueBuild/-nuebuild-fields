@@ -110,23 +110,46 @@ var wrapsAttributes = function (properties) {
   return ''
 };
 
-var wrapsRender = function (obj, element) {
-  var wrapProps = wrapsProps(obj) ? wrapsProps(obj) : false;
-  var props = wrapProps.wrap;
-  if (!props) {
-    return element
+var fieldsAttributes = function (obj) {
+  if (obj) {
+    return renderAttributes(obj, ['type'])
   }
-  var attributes = wrapsAttributes(props);
-  var printAttribues = attributes ? (" " + attributes) : '';
-  var tag = props.tag ? props.tag.replace(/<|>/g, '') : 'div';
+  return ''
+};
 
-  if (props.tag) {
-    var tagBegin = "<" + tag + printAttribues + ">";
-    var tagEnd = "</" + tag + ">";
-    return tagBegin + element + tagEnd
+var optionsRender = function (obj) {
+  var output = '';
+  if (obj) {
+    var options = obj.options ? obj.options : false;
+    if (options) {
+      Object.keys(options).forEach(function (key) {
+        if (key == 'message') {
+          output += "<option value=\"\">" + (options[key]) + "</option>";
+        } else {
+          output += "<option value=\"" + key + "\">" + (options[key]) + "</option>";
+        }
+      });
+    }
   }
+  return output
+};
 
-  return element
+var optgroupRender = function (obj) {
+  var output = '';
+  if (obj) {
+    var optgroup = obj.optgroup ? obj.optgroup : false;
+    if (optgroup) {
+      Object.keys(optgroup).forEach(function (key) {
+        var options = optgroup[key];
+        output += "<optgroup label=\"" + key + "\">";
+        Object.keys(options).forEach(function (option) {
+          output += "<option value=\"" + option + "\">" + (options[option]) + "</option>";
+        });
+        output += "</optgroup>";
+      });
+    }
+  }
+  return output
 };
 
 var labelsProps = function (obj) {
@@ -194,48 +217,6 @@ var labelsRender = function (obj, element) {
   return element
 };
 
-var fieldsAttributes = function (obj) {
-  if (obj) {
-    return renderAttributes(obj, ['type'])
-  }
-  return ''
-};
-
-var optionsRender = function (obj) {
-  var output = '';
-  if (obj) {
-    var options = obj.options ? obj.options : false;
-    if (options) {
-      Object.keys(options).forEach(function (key) {
-        if (key == 'message') {
-          output += "<option value=\"\">" + (options[key]) + "</option>";
-        } else {
-          output += "<option value=\"" + key + "\">" + (options[key]) + "</option>";
-        }
-      });
-    }
-  }
-  return output
-};
-
-var optgroupRender = function (obj) {
-  var output = '';
-  if (obj) {
-    var optgroup = obj.optgroup ? obj.optgroup : false;
-    if (optgroup) {
-      Object.keys(optgroup).forEach(function (key) {
-        var options = optgroup[key];
-        output += "<optgroup label=\"" + key + "\">";
-        Object.keys(options).forEach(function (option) {
-          output += "<option value=\"" + option + "\">" + (options[option]) + "</option>";
-        });
-        output += "</optgroup>";
-      });
-    }
-  }
-  return output
-};
-
 var typesRender = function (obj) {
   if (!obj) {
     return
@@ -272,7 +253,26 @@ var typesRender = function (obj) {
         break
     }
   }
-  return output
+  return labelsRender(obj, output)
+};
+
+var wrapsRender = function (obj) {
+  var wrapProps = wrapsProps(obj) ? wrapsProps(obj) : false;
+  var props = wrapProps.wrap;
+  if (!props) {
+    return typesRender(obj)
+  }
+  var attributes = wrapsAttributes(props);
+  var printAttribues = attributes ? (" " + attributes) : '';
+  var tag = props.tag ? props.tag.replace(/<|>/g, '') : 'div';
+
+  if (props.tag) {
+    var tagBegin = "<" + tag + printAttribues + ">";
+    var tagEnd = "</" + tag + ">";
+    return tagBegin + typesRender(obj) + tagEnd
+  }
+
+  return typesRender(obj)
 };
 
 var fieldsRender = function (props) {
@@ -281,7 +281,7 @@ var fieldsRender = function (props) {
   if (obj) {
     Object.keys(obj).forEach(function (key) {
       var field = obj[key];
-      output += wrapsRender(field, labelsRender(field, typesRender(field)));
+      output += wrapsRender(field);
     });
     return output
   }
