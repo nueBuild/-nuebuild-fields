@@ -12,6 +12,11 @@ const config = {
   configureWebpack: {
     name: pkgConfig.name,
     plugins: [],
+    resolve: {
+      alias: {
+        vue$: 'vue/dist/vue.common',
+      },
+    },
   },
 }
 

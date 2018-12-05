@@ -1,12 +1,16 @@
 <template>
-  <div v-bind="attributes()"></div>
+  <v-runtime-template :template="renderFields()"></v-runtime-template>
 </template>
 
 <script>
-import { containerAttributes, fieldsRender } from './../utils/index.js'
+import { containerRender } from './../utils/index.js'
+import VRuntimeTemplate from 'v-runtime-template'
 
 export default {
   name: 'NueBuildFields',
+  components: {
+    VRuntimeTemplate,
+  },
   props: {
     fieldOptions: {
       type: Object,
@@ -14,15 +18,12 @@ export default {
     },
   },
   methods: {
-    attributes() {
-      return containerAttributes(this.fieldOptions)
+    click() {
+      console.log('test')
     },
     renderFields() {
-      return (this.$el.innerHTML = fieldsRender(this.fieldOptions))
+      return containerRender(this.fieldOptions)
     },
-  },
-  mounted() {
-    this.renderFields()
   },
 }
 </script>
