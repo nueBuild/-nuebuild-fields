@@ -142,8 +142,6 @@ If you use an attribute that is not an unbroken string like `data-something` the
 "v-text": "yowsers"
 ```
 
-**Yes! You can even use Vue directives.**
-
 ### Labels
 
 To add a label to a field you'll add a `lable` property nested in your field property.
