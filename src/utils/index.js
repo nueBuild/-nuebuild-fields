@@ -1,4 +1,3 @@
-import { containerAttributes } from './containerAttributes'
-import { fieldsRender } from './fieldsRender'
+import { containerRender } from './containerRender'
 
-export { containerAttributes, fieldsRender }
+export { containerRender }
