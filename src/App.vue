@@ -15,6 +15,9 @@ export default {
       fieldOptions: {
         id: 'container-id',
         class: 'container-class',
+        wrap: {
+          tag: 'form',
+        },
         text: {
           type: 'text',
           id: 'text-id',
@@ -28,6 +31,7 @@ export default {
             tag: '<p>',
             class: 'wrap-class',
             id: 'wrap-id',
+            '@click': 'click',
           },
         },
         button: {
