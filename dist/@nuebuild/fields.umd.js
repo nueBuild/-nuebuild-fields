@@ -1,8 +1,10 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.NueBuildFields = {})));
-}(this, (function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('v-runtime-template')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'v-runtime-template'], factory) :
+  (factory((global.NueBuildFields = {}),global.VRuntimeTemplate));
+}(this, (function (exports,VRuntimeTemplate) { 'use strict';
+
+  VRuntimeTemplate = VRuntimeTemplate && VRuntimeTemplate.hasOwnProperty('default') ? VRuntimeTemplate['default'] : VRuntimeTemplate;
 
   /**
    * Is Object
@@ -294,10 +296,41 @@
     return ''
   };
 
+  var containerRender = function (obj) {
+    if (obj) {
+      var tag = 'div';
+      var attrs = '';
+      var attrsObj = containerAttributes(obj);
+
+      Object.keys(obj).forEach(function (key) {
+        if (!isObject(key) && key == 'wrap') {
+          Object.keys(obj[key]).forEach(function (value) {
+            tag = obj[key][value] ? obj[key][value].replace(/<|>/g, '') : 'div';
+          });
+        }
+      });
+
+      if (attrsObj) {
+        Object.keys(attrsObj).forEach(function (key) {
+          if (!isObject(key)) {
+            attrs += key + "=\"" + (attrsObj[key]) + "\" ";
+          }
+        });
+      }
+
+      var tagBegin = "<" + tag + " " + (attrs.trim()) + "\">";
+      var tagEnd = "</" + tag + ">";
+      return tagBegin + fieldsRender(obj) + tagEnd
+    }
+  };
+
   //
 
   var script = {
     name: 'NueBuildFields',
+    components: {
+      VRuntimeTemplate: VRuntimeTemplate,
+    },
     props: {
       fieldOptions: {
         type: Object,
@@ -305,15 +338,12 @@
       },
     },
     methods: {
-      attributes: function attributes() {
-        return containerAttributes(this.fieldOptions)
+      click: function click() {
+        console.log('test');
       },
       renderFields: function renderFields() {
-        return (this.$el.innerHTML = fieldsRender(this.fieldOptions))
+        return containerRender(this.fieldOptions)
       },
-    },
-    mounted: function mounted() {
-      this.renderFields();
     },
   };
 
@@ -325,7 +355,7 @@
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _c("div", _vm._b({}, "div", _vm.attributes(), false))
+    return _c("v-runtime-template", { attrs: { template: _vm.renderFields() } })
   };
   var __vue_staticRenderFns__ = [];
   __vue_render__._withStripped = true;
